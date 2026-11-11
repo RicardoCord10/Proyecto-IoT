@@ -24,6 +24,11 @@ app.use(cors());
 // Interpreta los datos recibidos en formato JSON
 app.use(express.json());
 
+app.use((req, res, next) => {
+    console.log("Solicitud recibida:", req.method, req.url);
+    next();
+});
+
 // Establecer conexión con Supabase
 
 const supabase = createClient(
@@ -56,6 +61,7 @@ app.get("/", (req, res) => {
 // Recibir y guardar mediciones
 
 app.post("/api/readings", async (req, res) => {
+    console.log("POST RECIBIDO:", req.body);
     try {
 
         // Validar dispositivo
